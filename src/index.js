@@ -8,6 +8,8 @@ import { browserHistory } from 'react-router';
 
 import './App.css';
 
+import { initLiyout } from 'src/core/layout'
+
 import configureStore from 'src/core/store';
 import Root from 'src/views/root';
 
@@ -34,5 +36,6 @@ if (module.hot) {
   });
 }
 
-
-render(Root);
+initLiyout(store.dispatch)
+  .then(() => render(Root))
+  .catch(error => console.log(error)); // eslint-disable-line no-console
