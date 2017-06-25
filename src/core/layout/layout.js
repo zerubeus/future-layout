@@ -7,7 +7,8 @@ export function initLayout(dispatch) {
     let socket = new WebSocket(websocketURI)
     socket.onmessage = (m) => {
       try {
-        let message = JSON.parse(m.data)
+        let message = JSON.parse(m.data);
+        console.log('Test if WS works : ', message);
         dispatch(layoutActions.layoutModelReceived(JSON.parse(m.data)));
         resolve();
       } catch (e) {

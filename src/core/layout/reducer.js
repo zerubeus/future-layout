@@ -2,7 +2,7 @@ import { Record } from 'immutable';
 import { layoutActions } from './actions';
 
 export const layoutState = new Record({
-  err: 'There is no profile yet'
+  layout: 'There is no profile yet'
 });
 
 export function layoutReducer(state = new layoutState(), {payload, type}) {
