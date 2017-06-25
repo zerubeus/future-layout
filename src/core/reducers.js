@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
-import { browserReducer } from './browser';
-
+import { layoutReducer } from './layout';
 
 export default combineReducers({
-  browser: browserReducer,
+  layout: layoutReducer,
 });
