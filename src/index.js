@@ -6,6 +6,7 @@ import Root from './views/root';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { initLayout } from './core/layout'
 import configureStore from './core/store';
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
 const rootElement = document.getElementById('root');
