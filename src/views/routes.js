@@ -1,7 +1,7 @@
 import App from './app';
 import ProfilePage from './pages/profile-page';
 import MainPage from './pages/main-page';
-import { createRoutesFromProfile } from '../core/profile';
+import ViewsTemplate from './pages/views-template';
 
 export const paths = {
   ROOT: '/',
@@ -11,8 +11,7 @@ export const getRoutes = getState => {
   return {
     path: paths.ROOT,
     component: App,
-    childRoutes: [
-      {
+    childRoutes: [{
         indexRoute: {
           component: ProfilePage,
         }
@@ -20,7 +19,11 @@ export const getRoutes = getState => {
       {
         path: '/main',
         component: MainPage,
-        childRoutes: createRoutesFromProfile(getState)
+        childRoutes: [{
+          indexRoute: {
+            // component: ViewsTemplate,
+          }
+        }]
       }
     ]
   };

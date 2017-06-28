@@ -10,7 +10,7 @@ export const selectedProfile = new Record({
 export function profileReducer(state = new selectedProfile(), {payload, type}) {
   switch (type) {
     case profileActions.PROFILE_SELECTED:
-      return state.merge({selectedProfile: payload});
+      return state.set('selectedProfile', payload);
     default:
       return state;
   }

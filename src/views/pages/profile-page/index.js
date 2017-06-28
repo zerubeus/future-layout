@@ -44,11 +44,13 @@ function checkFirstIndex (index, {id}, profileSelected) {
   if (index === 0) {
     return <Button bsSize="large" block key={index} style={{...buttonStyles, marginTop: '3%'}}>{capitalizeFirstLetter(id)}</Button>
   } else {
-    return <Button bsSize="large" block key={index} onClick={profileSelected(id)} style={buttonStyles}>{capitalizeFirstLetter(id)}</Button>
+    return <Button bsSize="large" block key={index} style={buttonStyles}>{capitalizeFirstLetter(id)}</Button>
   }
 }
 
-const ProfilePage = ({layout: {layout: {model: {profiles}}}, profileSelected}) => {
+const ProfilePage = ({layout: {layout: {model: {profiles}}}, profileSelected, layout}) => {
+  profileSelected('nurse')
+  console.log('Layouuuuuuuuuuut : ', layout);
   console.log('test your model : ', profiles);
   return (
     <div style={containerStyle}>
@@ -72,9 +74,8 @@ ProfilePage.propTypes = {
   layout: PropTypes.object.isRequired,
 };
 
-const mapDispatchToProps = {
-  profileSelected: profileActions.profileSelected
-};
+
+const mapDispatchToProps = (dispatch) => ({profileSelected: (id) => dispatch(profileActions.profileSelected(id))}) 
 
 //=====================================
 //  CONNECT
