@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { ButtonGroup, Button } from 'react-bootstrap';
+import { profileActions } from '../../../core/profile';
 import './profile.css';
 
 // this is just to fast style this component
@@ -26,7 +27,8 @@ const ProfileH3Style = {
 
 const buttonStyles = { 
   width: '520px', 
-  marginLeft: '12px' 
+  marginLeft: '12px',
+  float: 'left' 
 };
 
 
@@ -34,15 +36,20 @@ const buttonStyles = {
 //  COMPONENT
 //-------------------------------------
 
-function checkFirstIndex (index, {id}) {
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function checkFirstIndex (index, {id}, profileSelected) {
   if (index === 0) {
-    return <Button bsSize="large" block style={{...buttonStyles, marginTop: '3%'}}>{id}</Button>
+    return <Button bsSize="large" block key={index} style={{...buttonStyles, marginTop: '3%'}}>{capitalizeFirstLetter(id)}</Button>
   } else {
-    return <Button bsSize="large" block style={buttonStyles}>{id}</Button>
+    return <Button bsSize="large" block key={index} onClick={profileSelected(id)} style={buttonStyles}>{capitalizeFirstLetter(id)}</Button>
   }
 }
 
-const ProfilePage = ({layout: {layout: {model: {profiles}}}}) => {
+const ProfilePage = ({layout: {layout: {model: {profiles}}}, profileSelected}) => {
+  console.log('test your model : ', profiles);
   return (
     <div style={containerStyle}>
       <div>
@@ -52,7 +59,7 @@ const ProfilePage = ({layout: {layout: {model: {profiles}}}}) => {
           </div>
           <div>
             <ButtonGroup vertical>
-              {profiles.map((prof, index) => checkFirstIndex(index, prof))}
+              {profiles.map((profile, index) => checkFirstIndex(index, profile, profileSelected))}
             </ButtonGroup>
           </div>
         </div>
@@ -65,6 +72,10 @@ ProfilePage.propTypes = {
   layout: PropTypes.object.isRequired,
 };
 
+const mapDispatchToProps = {
+  profileSelected: profileActions.profileSelected
+};
+
 //=====================================
 //  CONNECT
 //-------------------------------------
@@ -73,5 +84,5 @@ const mapStateToProps = (state) => state;
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(ProfilePage);
