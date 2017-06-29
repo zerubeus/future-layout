@@ -11,6 +11,7 @@ import './profile.css';
 //=====================================
 //  STYLE
 //-------------------------------------
+
 const containerStyle = {
   width: '1280px',
   height: '800px',
@@ -42,16 +43,13 @@ function capitalizeFirstLetter(string) {
 
 function checkFirstIndex (index, {id}, profileSelected) {
   if (index === 0) {
-    return <Button bsSize="large" block key={index} style={{...buttonStyles, marginTop: '3%'}}>{capitalizeFirstLetter(id)}</Button>
+    return <Button bsSize="large" block key={index} onClick={() => profileSelected(id)} style={{...buttonStyles, marginTop: '3%'}}>{capitalizeFirstLetter(id)}</Button>
   } else {
-    return <Button bsSize="large" block key={index} style={buttonStyles}>{capitalizeFirstLetter(id)}</Button>
+    return <Button bsSize="large" block key={index} onClick={() => profileSelected(id)} style={buttonStyles}>{capitalizeFirstLetter(id)}</Button>
   }
 }
 
-const ProfilePage = ({layout: {layout: {model: {profiles}}}, profileSelected, layout}) => {
-  profileSelected('nurse')
-  console.log('Layouuuuuuuuuuut : ', layout);
-  console.log('test your model : ', profiles);
+const ProfilePage = ({layout: {layout: {model: {profiles}}}, profileSelected}) => {
   return (
     <div style={containerStyle}>
       <div>
@@ -72,15 +70,14 @@ const ProfilePage = ({layout: {layout: {model: {profiles}}}, profileSelected, la
 
 ProfilePage.propTypes = {
   layout: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
-
-
-const mapDispatchToProps = (dispatch) => ({profileSelected: (id) => dispatch(profileActions.profileSelected(id))}) 
 
 //=====================================
 //  CONNECT
 //-------------------------------------
 
+const mapDispatchToProps = (dispatch) => ({profileSelected: (id) => dispatch(profileActions.profileSelected(id))}) 
 const mapStateToProps = (state) => state;
 
 export default connect(
