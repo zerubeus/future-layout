@@ -5,6 +5,7 @@ import ViewsTemplate from './pages/views-template';
 
 export const paths = {
   ROOT: '/',
+  MAIN: '/main'
 };
 
 export const getRoutes = getState => {
@@ -17,11 +18,11 @@ export const getRoutes = getState => {
         }
       },
       {
-        path: '/main',
+        path: paths.MAIN,
         component: MainPage,
         childRoutes: [{
           indexRoute: {
-            // component: ViewsTemplate,
+            component: ViewsTemplate,
           }
         }]
       }
