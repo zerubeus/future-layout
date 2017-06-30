@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 function ViewsTemplate() {
   return (
     <div>
-      <h1>LOOOOOOOOOOOOOOOOOOOOOL</h1>
     </div>
   );
 }

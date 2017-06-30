@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 const condistionalDisplay = (display, imgUrl, customStyle, onClick) => {
   if (display) {
     return (
-      <img src={imgUrl} alt="" customStyle={customStyle} onClick={onClick}/>
+      <img src={imgUrl} alt="" style={customStyle} onClick={onClick}/>
     );
   } else {
     return null;
@@ -21,7 +21,7 @@ const HomeIcon = ({display, imgUrl, customStyle, onClick}) => {
 HomeIcon.propTypes = {
   display: PropTypes.bool,
   imgUrl: PropTypes.string,
-  customStyle: PropTypes.string,
+  customStyle: PropTypes.object,
   onClick: PropTypes.func
 };
 
