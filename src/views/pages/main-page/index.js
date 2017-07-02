@@ -24,25 +24,6 @@ const menuSwiper = {
 //  COMPONENT
 //-------------------------------------
 
-  var calcSnapLocation = function () {
-    var currentDiff;
-    var minimumDiff;
-    var bestSnap;
-    var snapLocations = [];
-    var positionY = 0;
-
-    for (var i = 0; i < snapLocations.length; i++) {
-      currentDiff = Math.abs(positionY - snapLocations[i]);
-
-      if (minimumDiff === undefined || currentDiff < minimumDiff) {
-        minimumDiff = currentDiff;
-        bestSnap = snapLocations[i];
-      }
-    }
-
-    return bestSnap;
-  };
-
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
