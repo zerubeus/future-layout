@@ -30,11 +30,16 @@ class MainPage extends React.Component {
     this.state = {
       verticalMove: 0,
       restPosition: window.innerHeight,
-      animate: false 
+      animate: false,
+      positionY: 0,
+      snapLocations: [0, window.innerHeight],
+      snapCount: this.state.snapLocations.length,
+      topPosition: null
     };
-
     this.handleAnimationChange = this.handleAnimationChange.bind(this);
     this.onPanStart =  this.onPanStart.bind(this);
+    this.calcSnapLocation = this.calcSnapLocation.bind(this);
+    this.onPan = this.onPan.bind(this);
   }
 
   componentDidMount() {
@@ -45,19 +50,52 @@ class MainPage extends React.Component {
 
   }
 
+    // return the snap that shall be selected
+  calcSnapLocation(currentSnap) {
+    if (this.state.verticalMove > 0) {
+      // swipe downward
+      if (currentSnap !== this.state.snapCount - 1) {
+        this.setState({restPosition: this.state.snapLocations[currentSnap + 1]});
+      }
+    } else if (this.state.verticalMove < 0) {
+      // swipe upward
+      this.setState({restPosition: window.innerHeight});
+      if (currentSnap !== 0) {
+        this.setState({restPosition: this.state.snapLocations[currentSnap + 1]});
+      }
+    }
+  };
+
   onPanStart(ev) {
     this.setState({
-      verticalMove: this.restPosition + parseInt(ev.deltaY, 10),
-      animate: true
-    })
+      verticalMove: this.state.restPosition + parseInt(ev.deltaY, 10),
+      animate: false
+    });
+  };
+
+  onPanEnd(ev, currentSnap) {
+    this.setState({
+      animate: true,
+      verticalMove: this.state.verticalMove - (this.state.restPosition + parseInt(ev.deltaY, 10))  
+    });
+    this.calcSnapLocation(currentSnap);
+    this.setState({topPosition: this.restPosition + 'px'});
+  }
+
+  onPan(ev) {
+    this.setState({positionY: this.state.restPosition + parseInt(ev.deltaY, 10)})
+    if (this.state.positionY < this.state.snapLocations[this.state.snapCount - 1]) {
+      this.setState({positionY: this.state.snapLocations[this.state.snapCount - 1]});
+    }
+    this.setState({topPosition: this.state.positionY + 'px'});
   }
 
   render() {
     return (
       <div>
 
-        <Hammer onPanStart={(e) => this.onPanStart(e)}>
-          <div style={menuSwiper} className={this.state.animate ? 'animate' : 'noop'}>{this.state.animate}</div>
+        <Hammer onPanStart={(e) => this.onPanStart(e)} onPanEnd={(e) => this.onPanEnd(e, 0)} onPan={(e) => this.onPan(e)}>
+          <div style={menuSwiper} className={this.state.animate ? 'animate' : 'noop'}>{`${this.state.animate}`}</div>
         </Hammer>
         
         <div>
