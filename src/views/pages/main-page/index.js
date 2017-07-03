@@ -5,20 +5,13 @@ import AcquisitionSvg from '../../../assets/img/acquisition.svg';
 import positioningSvg from '../../../assets/img/positioning.svg';
 import applicationsSvg from '../../../assets/img/applications.svg';
 import reviewSvg from '../../../assets/img/review.svg';
+import './style.css';
 
 import Hammer from 'react-hammerjs';
 
 //=====================================
 //  STYLE
 //-------------------------------------
-
-const menuSwiper = {
-  width: '1280px',
-  height: '800px',
-  backgroundColor: 'black',
-  zIndex: 99999,
-  position: 'relative'
-};
 
 //=====================================
 //  COMPONENT
@@ -32,9 +25,9 @@ class MainPage extends React.Component {
       restPosition: window.innerHeight,
       animate: false,
       positionY: 0,
-      snapLocations: [0, window.innerHeight],
-      snapCount: this.state.snapLocations.length,
-      topPosition: null
+      snapLocations: [window.innerHeight, 0],
+      snapCount: 2,
+      topPosition: {top: '801px'}
     };
     this.handleAnimationChange = this.handleAnimationChange.bind(this);
     this.onPanStart =  this.onPanStart.bind(this);
@@ -55,13 +48,17 @@ class MainPage extends React.Component {
     if (this.state.verticalMove > 0) {
       // swipe downward
       if (currentSnap !== this.state.snapCount - 1) {
+        console.log('hahhahaha', currentSnap);
         this.setState({restPosition: this.state.snapLocations[currentSnap + 1]});
+        console.log('downward : ', this.state.restPosition);
       }
     } else if (this.state.verticalMove < 0) {
       // swipe upward
       this.setState({restPosition: window.innerHeight});
       if (currentSnap !== 0) {
+        console.log('hahhahaha', currentSnap);
         this.setState({restPosition: this.state.snapLocations[currentSnap + 1]});
+        console.log('upward : ', this.state.restPosition);
       }
     }
   };
@@ -79,7 +76,7 @@ class MainPage extends React.Component {
       verticalMove: this.state.verticalMove - (this.state.restPosition + parseInt(ev.deltaY, 10))  
     });
     this.calcSnapLocation(currentSnap);
-    this.setState({topPosition: this.restPosition + 'px'});
+    this.setState({topPosition: {top: this.state.restPosition + 'px'}});
   }
 
   onPan(ev) {
@@ -87,7 +84,7 @@ class MainPage extends React.Component {
     if (this.state.positionY < this.state.snapLocations[this.state.snapCount - 1]) {
       this.setState({positionY: this.state.snapLocations[this.state.snapCount - 1]});
     }
-    this.setState({topPosition: this.state.positionY + 'px'});
+    this.setState({topPosition: {top: this.state.positionY + 'px'}});
   }
 
   render() {
@@ -95,7 +92,11 @@ class MainPage extends React.Component {
       <div>
 
         <Hammer onPanStart={(e) => this.onPanStart(e)} onPanEnd={(e) => this.onPanEnd(e, 0)} onPan={(e) => this.onPan(e)}>
-          <div style={menuSwiper} className={this.state.animate ? 'animate' : 'noop'}>{`${this.state.animate}`}</div>
+          <div style={this.state.topPosition} className={this.state.animate ? 'menuSwiper animate' : 'menuSwiper'}>
+            <Hammer onPanStart={(e) => this.onPanStart(e)} onPanEnd={(e) => this.onPanEnd(e, 0)} onPan={(e) => this.onPan(e)}>
+              <div className="swapper"></div>
+            </Hammer>
+          </div>
         </Hammer>
         
         <div>
