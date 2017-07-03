@@ -20,20 +20,20 @@ function colorSwitcher(currentView) {
   }
 }
 
-const Button = ({children, currentView, defaultTab = false, imgUrl = 'undefined', onClick, type = 'button'}) => {
+const UxMenuButton = ({children, currentView, defaultTab = false, imgUrl = null, onClick, type = 'button'}) => {
   return (
-    <button className={`ux-btn ${defaultTab ? 'apply-dashed' : null}`} onClick={onClick} style={colorSwitcher()} type={type}>
+    <button className={`ux-btn ${defaultTab ? 'apply-dashed' : null}`} onClick={onClick} style={colorSwitcher(currentView)} type={type}>
       {imgUrl && <img alt="" src={imgUrl}/>}
       {children}
     </button>
   );
 };
 
-Button.propTypes = {
+UxMenuButton.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   onClick: PropTypes.func,
   type: PropTypes.oneOf(['button', 'reset', 'submit'])
 };
 
-export default Button;
+export default UxMenuButton;

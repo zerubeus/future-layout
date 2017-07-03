@@ -1,0 +1,27 @@
+.menu-cover {
+    background-color: #e6dfdf;
+    height: 700px;
+    position: absolute;
+    width: 862px;
+    left: 216px;
+    border-radius: 8px;
+    &::before {
+        position: absolute;
+        left: -148px;
+        top: 207px;
+        width: 150px;
+        height: 280px;
+        background-color: #e6dfdf;
+        -webkit-clip-path: polygon(0 79%, 0 21%, 100% 0, 100% 100%);
+        clip-path: polygon(0 79%, 0 21%, 100% 0, 100% 100%);
+        content: '';
+    }
+}
+
+.ux-main-menu {
+    width: 809px;
+    padding-top: 4%;
+    .row {
+        z-index: 779;
+    }
+}

@@ -5,6 +5,7 @@ import AcquisitionSvg from '../../../assets/img/acquisition.svg';
 import positioningSvg from '../../../assets/img/positioning.svg';
 import applicationsSvg from '../../../assets/img/applications.svg';
 import reviewSvg from '../../../assets/img/review.svg';
+import MenuCover from '../../components/menu-cover';
 import './style.css';
 
 import Hammer from 'react-hammerjs';
@@ -86,7 +87,10 @@ class MainPage extends React.Component {
         <Hammer onPanStart={(e) => this.onPanStart(e)} onPanEnd={(e) => this.onPanEnd(e, 0)} onPan={(e) => this.onPan(e)}>
           <div style={this.state.topPosition} className={this.state.animate ? 'menuSwiper animate' : 'menuSwiper'}>
             <Hammer onPanStart={(e) => this.onPanStart(e)} onPanEnd={(e) => this.onPanEnd(e, 0)} onPan={(e) => this.onPan(e)}>
-              <div className="swapper"></div>
+              <div>
+                <div className="swapper"></div>
+                <MenuCover></MenuCover>
+              </div>
             </Hammer>
           </div>
         </Hammer>
