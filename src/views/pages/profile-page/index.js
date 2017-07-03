@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { ButtonGroup, Button } from 'react-bootstrap';
 import { profileActions } from '../../../core/profile';
+import { browserHistory } from 'react-router';
 import './profile.css';
 
 // this is just to fast style this component
@@ -41,11 +42,16 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function selectProfileAndRedirect(cb, id ,root) {
+  cb(id);
+  browserHistory.push(root);
+}
+
 function checkFirstIndex (index, {id}, profileSelected) {
   if (index === 0) {
-    return <Button bsSize="large" block key={index} onClick={() => profileSelected(id)} style={{...buttonStyles, marginTop: '3%'}}>{capitalizeFirstLetter(id)}</Button>
+    return <Button bsSize="large" block key={index} onClick={() => selectProfileAndRedirect(profileSelected, id, '/main')} style={{...buttonStyles, marginTop: '3%'}}>{capitalizeFirstLetter(id)}</Button>
   } else {
-    return <Button bsSize="large" block key={index} onClick={() => profileSelected(id)} style={buttonStyles}>{capitalizeFirstLetter(id)}</Button>
+    return <Button bsSize="large" block key={index} onClick={() => selectProfileAndRedirect(profileSelected, id, '/main')} style={buttonStyles}>{capitalizeFirstLetter(id)}</Button>
   }
 }
 
