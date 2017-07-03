@@ -29,18 +29,14 @@ class MainPage extends React.Component {
       snapCount: 2,
       topPosition: {top: '801px'}
     };
-    this.handleAnimationChange = this.handleAnimationChange.bind(this);
     this.onPanStart =  this.onPanStart.bind(this);
     this.calcSnapLocation = this.calcSnapLocation.bind(this);
     this.onPan = this.onPan.bind(this);
   }
 
   componentDidMount() {
-
-  }
-
-  handleAnimationChange() {
-
+    this.nv.addEventListener('touchstart', function(e){ e.preventDefault(); });
+    this.nv.addEventListener('touchmove', function(e){ e.preventDefault(); });
   }
 
     // return the snap that shall be selected
@@ -48,17 +44,13 @@ class MainPage extends React.Component {
     if (this.state.verticalMove > 0) {
       // swipe downward
       if (currentSnap !== this.state.snapCount - 1) {
-        console.log('hahhahaha', currentSnap);
         this.setState({restPosition: this.state.snapLocations[currentSnap + 1]});
-        console.log('downward : ', this.state.restPosition);
       }
     } else if (this.state.verticalMove < 0) {
       // swipe upward
       this.setState({restPosition: window.innerHeight});
       if (currentSnap !== 0) {
-        console.log('hahhahaha', currentSnap);
         this.setState({restPosition: this.state.snapLocations[currentSnap + 1]});
-        console.log('upward : ', this.state.restPosition);
       }
     }
   };
@@ -89,7 +81,7 @@ class MainPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="mainPage" ref={elem => this.nv = elem}>
 
         <Hammer onPanStart={(e) => this.onPanStart(e)} onPanEnd={(e) => this.onPanEnd(e, 0)} onPan={(e) => this.onPan(e)}>
           <div style={this.state.topPosition} className={this.state.animate ? 'menuSwiper animate' : 'menuSwiper'}>
