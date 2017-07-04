@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import './style.css';
 
 function ViewsTemplate() {
   return (
-    <div>
+    <div className="viewsTemplate text-center">
     </div>
   );
 }

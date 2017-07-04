@@ -22,7 +22,7 @@ function colorSwitcher(currentView) {
 
 const UxMenuButton = ({children, currentView, defaultTab = false, imgUrl = null, onClick, type = 'button'}) => {
   return (
-    <button className={`ux-btn ${defaultTab ? 'apply-dashed' : null}`} onClick={onClick} style={colorSwitcher(currentView)} type={type}>
+    <button className={`ux-btn btn btn-default btn-lg ${defaultTab ? 'apply-dashed' : ''}`} onClick={onClick} style={colorSwitcher(currentView)} type={type}>
       {imgUrl && <img alt="" src={imgUrl}/>}
       {children}
     </button>
@@ -31,7 +31,9 @@ const UxMenuButton = ({children, currentView, defaultTab = false, imgUrl = null,
 
 UxMenuButton.propTypes = {
   children: PropTypes.node,
-  className: PropTypes.string,
+  currentView: PropTypes.object,
+  defaultTab: PropTypes.bool,
+  imgUrl: PropTypes.string,
   onClick: PropTypes.func,
   type: PropTypes.oneOf(['button', 'reset', 'submit'])
 };
