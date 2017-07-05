@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import UxMenuButton from '../../components/ux-menu-button';
 import Acquisition from '../../../assets/img/acquisition.svg';
+import Async from 'react-promise'
 import './style.css';
 
 // this is a cool anti pattern a big fat statefull function in redux app (god please forgive me)
@@ -14,12 +15,12 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function returnViews(item, index) {
+function returnViews(item, index, module) {
   return (        
     <div className="row" key={index}>
       <div className="col-md-3 text-center" style={{marginTop: '40px'}}>
         <div className="row">
-          <img src={Acquisition} alt="" style={{width: '63px'}}/>
+          <Async promise={import(`../../../assets/img/${item.id}.svg`)} then={(model => <img src={model} alt="" style={{width: '63px'}}/>)}/>
         </div>
         <div className="row">
           <p style={{fontSize: '19px'}}>{capitalizeFirstLetter(item.id)}</p>
@@ -57,7 +58,6 @@ MenuCover.propTypes = {
 //  CONNECT
 //-------------------------------------
 
-// const mapDispatchToProps = (dispatch) => ({profileSelected: (id) => dispatch(profileActions.profileSelected(id))}) 
 const mapStateToProps = (state) => state;
 
 export default connect(
