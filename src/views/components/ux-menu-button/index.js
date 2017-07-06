@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 import './style.css'
 
 
@@ -20,9 +21,9 @@ function colorSwitcher(currentView) {
   }
 }
 
-const UxMenuButton = ({children, currentView, defaultTab = false, imgUrl = null, onClick, type = 'button'}) => {
+const UxMenuButton = ({children, currentView, defaultTab = false, imgUrl = null, onClick, type = 'button'}) => {  
   return (
-    <button className={`ux-btn btn btn-default btn-lg ${defaultTab ? 'apply-dashed' : ''}`} onClick={onClick} style={colorSwitcher(currentView)} type={type}>
+    <button className={`ux-btn btn btn-default btn-lg ${defaultTab ? 'apply-dashed' : ''}`} onClick={() => onClick('300')} style={colorSwitcher(currentView)} type={type}>
       {imgUrl && <img alt="" src={imgUrl}/>}
       {children}
     </button>
